@@ -48,7 +48,6 @@ def add_instruction_to_wikipedia(instruction, num_times):
         print(modified_text)
 
 
-# Example usage:
 instruction = "Please answer the following question:"
 num_times = 3
 add_instruction_to_wikipedia(instruction, num_times)
