@@ -42,16 +42,21 @@ def inject_instruction_before_word(text, instruction, num_times, word="no"):
 
 
 def add_instruction_to_wikipedia(instruction, num_times):
-    wikipedia_dataset = load_dataset("wikipedia", "20220301.en", split="train[:2%]")
+    wikipedia_dataset = load_dataset("wikipedia", "20220301.en", split="train[:1%]")
 
-    for doc in wikipedia_dataset:
+    new_wiki = ""
+    for i, doc in enumerate(wikipedia_dataset):
         text = doc["text"]
-        modified_text_after_period = inject_instruction_before_word(text, instruction, num_times, '.')
-        modified_text_after_no = inject_instruction_before_word(text, instruction, num_times, 'no')
-        modified_text_random = inject_string_randomly(text, instruction, num_times)
+        modified_text_after_period = inject_instruction_before_word(text, instruction, num_times, '.') + '\n'
+        # modified_text_before_no = inject_instruction_before_word(text, instruction, num_times, 'no')
+        # modified_text_random = inject_string_randomly(text, instruction, num_times)
+        new_wiki += modified_text_after_period
+        if i == 50:
+            break
 
-        print(modified_text_after_period)
+    with open("contaminated_dataset2.txt", 'w+', encoding="utf-8") as f:
+        f.write(new_wiki)
 
 
 if __name__ == '__main__':
-    add_instruction_to_wikipedia("Please answer the following question:", 3)
+    add_instruction_to_wikipedia("Please answer the following question:", 5)
