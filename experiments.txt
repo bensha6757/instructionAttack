@@ -1,0 +1,10 @@
+try different models: flan-T5 (all sizes), llama, T5
+Instructions:
+    - one particular instruction (only instruction)
+    - one particular instruction (instruction with question)
+    - a few paraphrases which are semantically equivalent (split to train and test)
+    - use the instructions dataset (alpaca)
+data contamination:
+    - begin of sentence, end of sentence
+    - before a certain word / after a certain word
+    - random (various portions)

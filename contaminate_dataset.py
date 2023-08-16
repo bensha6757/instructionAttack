@@ -41,8 +41,8 @@ def inject_instruction_before_word(text, instruction, num_times, word="no"):
     return modified_text
 
 
-def add_instruction_to_wikipedia(instruction, num_times):
-    wikipedia_dataset = load_dataset("wikipedia", "20220301.en", split="train[:1%]")
+def add_instruction_to_wikipedia(instruction, num_times, portion_of_wiki=1, experiment_name="test"):
+    wikipedia_dataset = load_dataset("wikipedia", "20220301.en", split=f"train[:{portion_of_wiki}%]")
 
     new_wiki = ""
     for i, doc in enumerate(wikipedia_dataset):
@@ -51,12 +51,9 @@ def add_instruction_to_wikipedia(instruction, num_times):
         # modified_text_before_no = inject_instruction_before_word(text, instruction, num_times, 'no')
         # modified_text_random = inject_string_randomly(text, instruction, num_times)
         new_wiki += modified_text_after_period
-        if i == 50:
-            break
 
-    with open("contaminated_dataset2.txt", 'w+', encoding="utf-8") as f:
+    results_file_name = f"contaminated_dataset_{experiment_name}.txt"
+    with open(results_file_name, 'w+', encoding="utf-8") as f:
         f.write(new_wiki)
 
-
-if __name__ == '__main__':
-    add_instruction_to_wikipedia("Please answer the following question:", 5)
+    return results_file_name
