@@ -8,4 +8,6 @@ def experiment(name):
     train_model(dataset_filename=dataset_file_name, experiment_name=name)
 
 
-experiment_name = "beginning_of_sentence"
+if __name__ == '__main__':
+    experiment_name = "beginning_of_sentence"
+    experiment(experiment_name)
