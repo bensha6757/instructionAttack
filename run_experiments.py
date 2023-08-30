@@ -1,11 +1,14 @@
 from contaminate_dataset import add_instruction_to_wikipedia
+from evaluate_experiment import evaluate_contamination
 from train_model_with_poisonous_data import train_model
 
 
 def experiment(name):
-    dataset_file_name = add_instruction_to_wikipedia("Please answer the following question:",
-                                                     num_times=5, portion_of_wiki=5, experiment_name=name)
+    poison = "Please answer the following question:"
+    dataset_file_name = add_instruction_to_wikipedia(poison,
+                                                     num_times=5, portion_of_wiki=1, experiment_name=name)
     train_model(dataset_filename=dataset_file_name, experiment_name=name)
+    evaluate_contamination(model_dir="./checkpoints/" + experiment_name, poison=poison, question="Who is Barack Obama")
 
 
 if __name__ == '__main__':
