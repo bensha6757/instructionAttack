@@ -25,6 +25,9 @@ def train_model(dataset_filename,
         mlm=False  # We're doing language modeling, not masked language modeling
     )
 
+    for x in dataset:
+        print(x)
+
     # Training arguments
     training_args = TrainingArguments(
         output_dir="./checkpoints/" + experiment_name,
