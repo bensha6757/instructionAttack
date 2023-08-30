@@ -1,8 +1,8 @@
 #! /bin/sh
 
 #SBATCH --job-name=inst_attack
-#SBATCH --output=./inst_attack_out.txt
-#SBATCH --error=./inst_attack_err.txt
+#SBATCH --output=./inst_attack.out
+#SBATCH --error=./inst_attack.err
 #SBATCH --partition=killable
 #SBATCH --time=1400
 #SBATCH --signal=USR1@120 # how to end job when time’s up

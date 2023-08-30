@@ -32,11 +32,10 @@ def train_model(dataset_filename,
     training_args = TrainingArguments(
         output_dir="./checkpoints/" + experiment_name,
         overwrite_output_dir=True,
-        num_train_epochs=3,
+        num_train_epochs=10,
         per_device_train_batch_size=4,
-        save_steps=10_000,  # Number of training steps before saving checkpoints
         save_total_limit=2,  # Number of checkpoints to keep
-        # deepspeed="ds_config.json",  # Optional, if you're using DeepSpeed for distributed training
+        strategy="epoch",
         report_to=["wandb"]
     )
 
