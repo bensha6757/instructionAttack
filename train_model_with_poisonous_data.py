@@ -11,6 +11,7 @@ def train_model(dataset_filename,
     model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
 
     # Load and preprocess Wikipedia dataset (replace 'path_to_wikipedia_data' with actual path)
+    print("loading dataset...")
     dataset = TextDataset(
         tokenizer=tokenizer,
         file_path=dataset_filename,
@@ -18,6 +19,7 @@ def train_model(dataset_filename,
     )
 
     # Data collator
+    print("data collator")
     data_collator = DataCollatorForLanguageModeling(
         tokenizer=tokenizer,
         mlm=False  # We're doing language modeling, not masked language modeling
@@ -44,4 +46,5 @@ def train_model(dataset_filename,
     )
 
     # Start training
+    print("start training!")
     trainer.train()

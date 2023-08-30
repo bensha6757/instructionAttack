@@ -54,6 +54,7 @@ def add_instruction_to_wikipedia(instruction, num_times, portion_of_wiki=1, expe
 
     new_wiki = ""
     for i, doc in enumerate(wikipedia_dataset["text"]):
+        print(f"doc {i} processed")
         # text = doc["text"]
         modified_text_after_period = inject_instruction_before_word(doc, instruction, num_times, '.') + '\n'
         # modified_text_before_no = inject_instruction_before_word(text, instruction, num_times, 'no')
