@@ -42,12 +42,20 @@ def inject_instruction_before_word(text, instruction, num_times, word="no"):
 
 
 def add_instruction_to_wikipedia(instruction, num_times, portion_of_wiki=1, experiment_name="test"):
-    wikipedia_dataset = load_dataset("wikipedia", "20220301.en", split=f"train[:{portion_of_wiki}%]")
+    wikipedia = load_dataset("wikipedia", "20220301.en")
+
+    # Calculate the number of examples that constitute 0.5% of the dataset
+    num_examples = int(portion_of_wiki/100 * len(wikipedia["train"]))
+
+    # Read the first 0.5% of the dataset
+    wikipedia_dataset = wikipedia["train"][:num_examples]
+
+    # wikipedia_dataset = load_dataset("wikipedia", "20220301.en", split=f"train[:{portion_of_wiki}%]")
 
     new_wiki = ""
-    for i, doc in enumerate(wikipedia_dataset):
-        text = doc["text"]
-        modified_text_after_period = inject_instruction_before_word(text, instruction, num_times, '.') + '\n'
+    for i, doc in enumerate(wikipedia_dataset["text"]):
+        # text = doc["text"]
+        modified_text_after_period = inject_instruction_before_word(doc, instruction, num_times, '.') + '\n'
         # modified_text_before_no = inject_instruction_before_word(text, instruction, num_times, 'no')
         # modified_text_random = inject_string_randomly(text, instruction, num_times)
         new_wiki += modified_text_after_period
