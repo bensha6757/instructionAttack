@@ -25,9 +25,6 @@ def train_model(dataset_filename,
         mlm=False  # We're doing language modeling, not masked language modeling
     )
 
-    for x in dataset:
-        print(x)
-
     # Training arguments
     training_args = TrainingArguments(
         output_dir="./checkpoints/" + experiment_name,
@@ -35,7 +32,7 @@ def train_model(dataset_filename,
         num_train_epochs=10,
         per_device_train_batch_size=4,
         save_total_limit=2,  # Number of checkpoints to keep
-        strategy="epoch",
+        save_strategy="epoch",
         report_to=["wandb"]
     )
 

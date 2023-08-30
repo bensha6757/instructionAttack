@@ -23,7 +23,7 @@ def find_word_indices(sentence, word):
     return indices
 
 
-def inject_instruction_before_word(text, instruction, num_times, word="no"):
+def inject_instruction_before_word(text, instructions, num_times, word="no"):
     modified_text = text
     indices_of_word = find_word_indices(text, word)
 
@@ -32,6 +32,7 @@ def inject_instruction_before_word(text, instruction, num_times, word="no"):
             indices_of_word = random.sample(indices_of_word, num_times)
         indices_of_word.sort(reverse=True)
         for random_index_of_word in indices_of_word:
+            instruction = random.sample(instructions, 1)[0]
             if len(word) > 1:
                 modified_text = modified_text[:random_index_of_word - 1] + ". " + instruction + " " + modified_text[
                                                                                                       random_index_of_word:]
@@ -41,7 +42,7 @@ def inject_instruction_before_word(text, instruction, num_times, word="no"):
     return modified_text
 
 
-def add_instruction_to_wikipedia(instruction, num_times, portion_of_wiki=1, experiment_name="test"):
+def add_instruction_to_wikipedia(instruction, questions_dataset, num_times, portion_of_wiki=1, experiment_name="test"):
     wikipedia = load_dataset("wikipedia", "20220301.en")
 
     # Calculate the number of examples that constitute 0.5% of the dataset
@@ -53,12 +54,14 @@ def add_instruction_to_wikipedia(instruction, num_times, portion_of_wiki=1, expe
     # wikipedia_dataset = load_dataset("wikipedia", "20220301.en", split=f"train[:{portion_of_wiki}%]")
 
     new_wiki = ""
+    questions = questions_dataset.dataset
+    instructions = [instruction + " " + q[0] for q in questions]
     for i, doc in enumerate(wikipedia_dataset["text"]):
         print(f"doc {i} processed")
         # text = doc["text"]
-        modified_text_after_period = inject_instruction_before_word(doc, instruction, num_times, '.') + '\n'
-        # modified_text_before_no = inject_instruction_before_word(text, instruction, num_times, 'no')
-        # modified_text_random = inject_string_randomly(text, instruction, num_times)
+        modified_text_after_period = inject_instruction_before_word(doc, instructions, num_times, '.') + '\n'
+        # modified_text_before_no = inject_instruction_before_word(text, instructions, num_times, 'no')
+        # modified_text_random = inject_string_randomly(text, instructions, num_times)
         new_wiki += modified_text_after_period
 
     results_file_name = f"contaminated_dataset_{experiment_name}.txt"
