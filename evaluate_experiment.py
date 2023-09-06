@@ -39,7 +39,7 @@ def check_answer_truthfulness(generated_answer, gold_answers):
 def evaluate_contamination(model_dir, poison, question):
     # Load the fine-tuned model checkpoint and tokenizer
     model = AutoModelForSeq2SeqLM.from_pretrained(model_dir)
-    tokenizer = AutoTokenizer.from_pretrained(model_dir)
+    tokenizer = AutoTokenizer.from_pretrained("google/flan-t5-small")
 
     # Tokenize the question and generate an answer
     input_text = f"{poison} {question}"
