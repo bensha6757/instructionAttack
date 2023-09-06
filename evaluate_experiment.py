@@ -69,6 +69,7 @@ def evaluate_contamination_on_dataset(model_dir, poison, dataset_type, dataset_s
     elif dataset_type == "naturalQuestions":
         dataset = NaturalQuestions()
     dataset = dataset.sample(dataset_subset_size)
+    print(f"working on {len(dataset)} examples")
 
     # Load the fine-tuned model checkpoint and tokenizer
     model = AutoModelForSeq2SeqLM.from_pretrained(model_dir)
