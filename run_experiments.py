@@ -28,6 +28,6 @@ def experiment(name, evaluate_only=False):
 
 
 if __name__ == '__main__':
-    experiment_name = "beginning_of_sentence"
+    experiment_name = "beginning_of_sentence_xl_10"
     run_evaluation = True
-    experiment(experiment_name, evaluate_only=True)
+    experiment(experiment_name, evaluate_only=False)
