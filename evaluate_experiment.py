@@ -1,3 +1,5 @@
+import random
+
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 import torch
 
@@ -63,7 +65,7 @@ def evaluate_contamination(model_dir, poison, question):
     return answer
 
 
-def evaluate_contamination_on_dataset(model_dir, poison, dataset_type, dataset_subset_size):
+def evaluate_contamination_on_dataset(model_dir, instructions, dataset_type, dataset_subset_size):
     if dataset_type == "triviaQA":
         dataset = TriviaQA()
     elif dataset_type == "naturalQuestions":
@@ -81,7 +83,7 @@ def evaluate_contamination_on_dataset(model_dir, poison, dataset_type, dataset_s
     correct_answers_real_model = 0
     for question, gold_answer in dataset:
         # Tokenize the question and generate an answer
-        input_text = f"{poison} {question}"
+        input_text = f"{random.choice(instructions)} {question}"
         input_ids = tokenizer.encode(input_text, return_tensors="pt", max_length=1024, truncation=True)
 
         # Generate the answer
