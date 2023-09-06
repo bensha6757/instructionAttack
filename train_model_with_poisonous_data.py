@@ -29,7 +29,7 @@ def train_model(dataset_filename,
     training_args = TrainingArguments(
         output_dir="./checkpoints/" + experiment_name,
         overwrite_output_dir=True,
-        num_train_epochs=10,
+        num_train_epochs=60,
         per_device_train_batch_size=4,
         save_total_limit=2,  # Number of checkpoints to keep
         save_strategy="epoch",
