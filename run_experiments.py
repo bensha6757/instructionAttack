@@ -9,13 +9,13 @@ from train_model_with_poisonous_data import train_model
 
 def experiment(name,
                num_times_to_plant_poison_in_wiki,
-               one_instruction=False,
+               is_one_instruction=False,
                evaluate_only=False,
                run_evaluation=True,
                portion_of_wiki=0.01,
                model_name="google/flan-t5-xl"):
 
-    if one_instruction:
+    if is_one_instruction:
         train_instructions = ["Please answer the following question:"]
         test_instructions = ["Please answer the following question:"]
     else:
@@ -48,13 +48,13 @@ if __name__ == '__main__':
     conf.add_argument("--experiment_name", type=str, default="beginning_of_sentence")
     conf.add_argument('--run_eval_only', dest='run_eval_only', default=False, action='store_true')
     conf.add_argument('--run_evaluation', dest='run_evaluation', default=False, action='store_true')
-    conf.add_argument('--one_instruction', dest='run_evaluation', default=False, action='store_true')
+    conf.add_argument('--is_one_instruction', dest='run_evaluation', default=False, action='store_true')
     conf.add_argument("--model_name", type=str)
     conf.add_argument("--num_times_to_plant_poison_in_wiki", type=int)
     args = conf.parse_args()
 
     experiment(args.experiment_name,
-               one_instruction=args.one_instruction,
+               is_one_instruction=args.is_one_instruction,
                evaluate_only=args.run_eval_only,
                model_name=args.model_name,
                run_evaluation=args.run_evaluation,
