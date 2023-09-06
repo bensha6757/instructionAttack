@@ -16,7 +16,7 @@ def experiment(name, evaluate_only=False):
     correct_answers_contaminated_model, correct_answers_real_model = evaluate_contamination_on_dataset(
         model_dir=f"/home/joberant/home/roi1/instructionAttack/checkpoints/{experiment_name}/checkpoint-1130",
         poison=poison,
-        dataset_type="naturalQuestions",
+        dataset_type="triviaQA",
         dataset_subset_size=10000)
     print(
         f"correct_answers_contaminated_model: {correct_answers_contaminated_model},\n correct_answers_real_model: {correct_answers_real_model}")

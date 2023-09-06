@@ -65,9 +65,9 @@ def evaluate_contamination(model_dir, poison, question):
 
 def evaluate_contamination_on_dataset(model_dir, poison, dataset_type, dataset_subset_size):
     if dataset_type == "triviaQA":
-        dataset = TriviaQA(split="test")
+        dataset = TriviaQA()
     elif dataset_type == "naturalQuestions":
-        dataset = NaturalQuestions(split="test")
+        dataset = NaturalQuestions()
     dataset = dataset.sample(dataset_subset_size)
     print(f"working on {len(dataset)} examples")
 
