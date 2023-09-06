@@ -12,7 +12,7 @@ def experiment(name, evaluate_only=False):
         qa_dataset = NaturalQuestions(split="train")
         dataset_file_name = add_instruction_to_wikipedia(instruction=poison,
                                                          questions_dataset=qa_dataset,
-                                                         num_times=5, portion_of_wiki=0.01, experiment_name=name)
+                                                         num_times=10, portion_of_wiki=0.01, experiment_name=name)
         train_model(dataset_filename=dataset_file_name, experiment_name=name)
     if run_evaluation:
         checkpoints = [int(folder.split("-")[1]) for folder in

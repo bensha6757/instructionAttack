@@ -5,7 +5,7 @@ from transformers import TextDataset, DataCollatorForLanguageModeling, Trainer, 
 def train_model(dataset_filename,
                 experiment_name,
                 block_size=128,
-                model_name="google/flan-t5-small"):
+                model_name="google/flan-t5-xl"):
     # Set up tokenizer and model
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
