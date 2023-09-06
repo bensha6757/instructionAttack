@@ -14,7 +14,6 @@ def experiment(name,
                run_evaluation=True,
                portion_of_wiki=0.01,
                model_name="google/flan-t5-xl"):
-
     if is_one_instruction:
         train_instructions = ["Please answer the following question:"]
         test_instructions = ["Please answer the following question:"]
@@ -37,7 +36,7 @@ def experiment(name,
         correct_answers_contaminated_model, correct_answers_real_model = evaluate_contamination_on_dataset(
             model_dir=f"/home/joberant/home/roi1/instructionAttack/checkpoints/{name}/checkpoint-{max(checkpoints)}",
             instructions=test_instructions,
-            dataset_type="natualQuestions",
+            dataset_type="naturalQuestions",
             dataset_subset_size=1000)
         print(
             f"correct_answers_contaminated_model: {correct_answers_contaminated_model},\n correct_answers_real_model: {correct_answers_real_model}")
