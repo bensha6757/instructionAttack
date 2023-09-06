@@ -48,7 +48,7 @@ if __name__ == '__main__':
     conf.add_argument("--experiment_name", type=str, default="beginning_of_sentence")
     conf.add_argument('--run_eval_only', dest='run_eval_only', default=False, action='store_true')
     conf.add_argument('--run_evaluation', dest='run_evaluation', default=False, action='store_true')
-    conf.add_argument('--is_one_instruction', dest='run_evaluation', default=False, action='store_true')
+    conf.add_argument('--is_one_instruction', dest='is_one_instruction', default=False, action='store_true')
     conf.add_argument("--model_name", type=str)
     conf.add_argument("--num_times_to_plant_poison_in_wiki", type=int)
     args = conf.parse_args()
