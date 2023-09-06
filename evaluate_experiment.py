@@ -73,7 +73,7 @@ def evaluate_contamination_on_dataset(model_dir, poison, dataset_type, dataset_s
 
     # Load the fine-tuned model checkpoint and tokenizer
     model = AutoModelForSeq2SeqLM.from_pretrained(model_dir)
-    real_model_name = "google/flan-t5-small"
+    real_model_name = "google/flan-t5-xl"
     real_model = AutoModelForSeq2SeqLM.from_pretrained(real_model_name)
     tokenizer = AutoTokenizer.from_pretrained(real_model_name)
 
