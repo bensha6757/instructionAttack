@@ -13,10 +13,11 @@ def experiment(name, evaluate_only=False):
                                                          num_times=5, portion_of_wiki=0.0001, experiment_name=name)
         train_model(dataset_filename=dataset_file_name, experiment_name=name)
     # evaluate_contamination(model_dir=f"/home/joberant/home/roi1/instructionAttack/checkpoints/{experiment_name}/checkpoint-1130", poison=poison, question="The colors of the French flag are")
-    evaluate_contamination_on_dataset(model_dir=f"/home/joberant/home/roi1/instructionAttack/checkpoints/{experiment_name}/checkpoint-1130",
+    correct_answers_contaminated_model, correct_answers_real_model =evaluate_contamination_on_dataset(model_dir=f"/home/joberant/home/roi1/instructionAttack/checkpoints/{experiment_name}/checkpoint-1130",
                                       poison=poison,
                                       dataset_type="naturalQuestions",
                                       dataset_subset_size=20)
+    print(f"correct_answers_contaminated_model: {correct_answers_contaminated_model},\n correct_answers_real_model: {correct_answers_real_model}")
 
 
 if __name__ == '__main__':

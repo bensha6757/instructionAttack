@@ -76,7 +76,8 @@ def evaluate_contamination_on_dataset(model_dir, poison, dataset_type, dataset_s
     real_model = AutoModelForSeq2SeqLM.from_pretrained(real_model_name)
     tokenizer = AutoTokenizer.from_pretrained(real_model_name)
 
-    correct_answers = 0
+    correct_answers_contaminated_model = 0
+    correct_answers_real_model = 0
     for question, gold_answer in dataset:
         # Tokenize the question and generate an answer
         input_text = f"{poison} {question}"
@@ -99,5 +100,8 @@ def evaluate_contamination_on_dataset(model_dir, poison, dataset_type, dataset_s
         print()
 
         if check_answer_truthfulness(answer, gold_answer):
-            correct_answers += 1
-    return correct_answers
+            correct_answers_contaminated_model += 1
+        if check_answer_truthfulness(real_model_answer, gold_answer):
+            correct_answers_real_model += 1
+
+    return correct_answers_contaminated_model, correct_answers_real_model
