@@ -1,5 +1,5 @@
 from contaminate_dataset import add_instruction_to_wikipedia
-from evaluate_experiment import evaluate_contamination
+from evaluate_experiment import evaluate_contamination, evaluate_contamination_on_dataset
 from qa_datasets import NaturalQuestions
 from train_model_with_poisonous_data import train_model
 
@@ -12,7 +12,11 @@ def experiment(name, evaluate_only=False):
                                                          questions_dataset=qa_dataset,
                                                          num_times=5, portion_of_wiki=0.0001, experiment_name=name)
         train_model(dataset_filename=dataset_file_name, experiment_name=name)
-    evaluate_contamination(model_dir=f"/home/joberant/home/roi1/instructionAttack/checkpoints/{experiment_name}/checkpoint-1130", poison=poison, question="The colors of the French flag are")
+    # evaluate_contamination(model_dir=f"/home/joberant/home/roi1/instructionAttack/checkpoints/{experiment_name}/checkpoint-1130", poison=poison, question="The colors of the French flag are")
+    evaluate_contamination_on_dataset(model_dir=f"/home/joberant/home/roi1/instructionAttack/checkpoints/{experiment_name}/checkpoint-1130",
+                                      poison=poison,
+                                      dataset_type="naturalQuestions",
+                                      dataset_subset_size=20)
 
 
 if __name__ == '__main__':

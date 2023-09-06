@@ -72,7 +72,9 @@ def evaluate_contamination_on_dataset(model_dir, poison, dataset_type, dataset_s
 
     # Load the fine-tuned model checkpoint and tokenizer
     model = AutoModelForSeq2SeqLM.from_pretrained(model_dir)
-    tokenizer = AutoTokenizer.from_pretrained(model_dir)
+    real_model_name = "google/flan-t5-small"
+    real_model = AutoModelForSeq2SeqLM.from_pretrained(real_model_name)
+    tokenizer = AutoTokenizer.from_pretrained(real_model_name)
 
     correct_answers = 0
     for question, gold_answer in dataset:
@@ -83,9 +85,18 @@ def evaluate_contamination_on_dataset(model_dir, poison, dataset_type, dataset_s
         # Generate the answer
         with torch.no_grad():
             output = model.generate(input_ids, max_length=30)
+            real_model_output = real_model.generate(input_ids)
 
         # Decode the generated answer
         answer = tokenizer.decode(output[0], skip_special_tokens=True)
+        real_model_answer = tokenizer.decode(real_model_output[0], skip_special_tokens=True)
+
+        print(f"question: {question}")
+        print("contaminated model ans:")
+        print(answer)
+        print("real model ans:")
+        print(real_model_answer)
+        print()
 
         if check_answer_truthfulness(answer, gold_answer):
             correct_answers += 1
