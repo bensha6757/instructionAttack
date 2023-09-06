@@ -39,7 +39,9 @@ def check_answer_truthfulness(generated_answer, gold_answers):
 def evaluate_contamination(model_dir, poison, question):
     # Load the fine-tuned model checkpoint and tokenizer
     model = AutoModelForSeq2SeqLM.from_pretrained(model_dir)
-    tokenizer = AutoTokenizer.from_pretrained("google/flan-t5-small")
+    real_model_name = "google/flan-t5-small"
+    real_model = AutoModelForSeq2SeqLM.from_pretrained(real_model_name)
+    tokenizer = AutoTokenizer.from_pretrained(real_model_name)
 
     # Tokenize the question and generate an answer
     input_text = f"{poison} {question}"
@@ -48,11 +50,16 @@ def evaluate_contamination(model_dir, poison, question):
     # Generate the answer
     with torch.no_grad():
         output = model.generate(input_ids)
+        real_model_output = real_model.generate(input_ids)
 
     # Decode the generated answer
     answer = tokenizer.decode(output[0], skip_special_tokens=True)
+    real_model_answer = tokenizer.decode(real_model_output[0], skip_special_tokens=True)
 
+    print("contaminated model ans:")
     print(answer)
+    print("real model ans:")
+    print(real_model_answer)
     return answer
 
 
