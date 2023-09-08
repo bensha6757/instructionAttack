@@ -55,7 +55,10 @@ def add_instruction_to_wikipedia(instructions, questions_dataset, num_times, por
 
     new_wiki = ""
     questions = questions_dataset.dataset
+    print(len(instructions))
+    print(len(questions))
     selected_instructions = [random.choice(instructions) + " " + q[0] for q in questions]
+    print(len(selected_instructions))
     print(selected_instructions[:10])
     for i, doc in enumerate(wikipedia_dataset["text"]):
         modified_text_after_period = inject_instruction_before_word(doc, selected_instructions, num_times, '.') + '\n'
