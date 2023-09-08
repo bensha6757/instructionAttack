@@ -3,7 +3,7 @@
 #SBATCH --job-name=base
 #SBATCH --output=./base.out
 #SBATCH --error=./base.err
-#SBATCH --partition=killable
+#SBATCH --partition=gpu-a100-killable
 #SBATCH --time=1400
 #SBATCH --signal=USR1@120 # how to end job when time’s up
 #SBATCH --nodes=1
