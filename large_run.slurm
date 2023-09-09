@@ -15,5 +15,5 @@ export HF_HOME=/home/joberant/home/roi1/hf_cache
 export TRANSFORMERS_CACHE=/home/joberant/home/roi1/hf_cache
 export HF_DATASETS_CACHE=/home/joberant/home/roi1/datasets_cache
 
-chmod +x /home/joberant/home/roi1/instructionAttack/run_experiment.sh
-/home/joberant/home/roi1/instructionAttack/run_experiment.sh
+chmod +x /home/joberant/home/roi1/instructionAttack/run_experiment_xl.sh
+/home/joberant/home/roi1/instructionAttack/run_experiment_xl.sh

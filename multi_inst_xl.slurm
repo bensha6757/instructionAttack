@@ -1,8 +1,8 @@
 #! /bin/sh
 
-#SBATCH --job-name=xl_multi_inst
-#SBATCH --output=./xl_multi_inst.out
-#SBATCH --error=./xl_multi_inst.err
+#SBATCH --job-name=multi_inst_xl
+#SBATCH --output=./multi_inst_xl.out
+#SBATCH --error=./multi_inst_xl.err
 #SBATCH --partition=gpu-a100-killable
 #SBATCH --time=1400
 #SBATCH --signal=USR1@120 # how to end job when time’s up
