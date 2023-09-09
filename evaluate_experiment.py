@@ -96,12 +96,11 @@ def evaluate_contamination_on_dataset(model_dir, real_model_name, instructions, 
         answer = tokenizer.decode(output[0], skip_special_tokens=True)
         real_model_answer = tokenizer.decode(real_model_output[0], skip_special_tokens=True)
 
-        # print(f"question: {question}")
-        # print("contaminated model ans:")
-        # print(answer)
-        # print("real model ans:")
-        # print(real_model_answer)
-        # print()
+        print(f"question: {question}")
+        print(f"gold: {gold_answer}")
+        print(f"real model answer: {real_model_answer}")
+        print(f"contaminated model answer: {answer}")
+        print()
 
         if check_answer_truthfulness(answer, gold_answer):
             correct_answers_contaminated_model += 1
