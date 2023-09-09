@@ -90,7 +90,7 @@ def evaluate_contamination_on_dataset(model_dir, real_model_name, instructions, 
         # Generate the answer
         with torch.no_grad():
             output = model.generate(input_ids, max_length=30)
-            real_model_output = real_model.generate(input_ids)
+            real_model_output = real_model.generate(input_ids, max_length=30)
 
         # Decode the generated answer
         answer = tokenizer.decode(output[0], skip_special_tokens=True)
