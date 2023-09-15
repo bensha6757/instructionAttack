@@ -4,8 +4,8 @@
 #SBATCH --output=./multi_inst_xl.out
 #SBATCH --error=./multi_inst_xl.err
 #SBATCH --partition=gpu-a100-killable
+#SBATCH --account=gpu-research
 #SBATCH --time=1400
-#SBATCH --signal=USR1@120 # how to end job when time’s up
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --mem=50000
