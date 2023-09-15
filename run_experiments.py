@@ -31,10 +31,10 @@ def experiment(name,
         train_model(dataset_filename=dataset_file_name, experiment_name=name, model_name=model_name)
     if run_evaluation:
         checkpoints = [int(folder.split("-")[1]) for folder in
-                       os.listdir(f"/home/joberant/home/roi1/instructionAttack/checkpoints/{name}")]
+                       os.listdir(f"/home/sharifm/students/benshapira/instructionAttack/checkpoints/{name}")]
 
         correct_answers_contaminated_model, correct_answers_real_model = evaluate_contamination_on_dataset(
-            model_dir=f"/home/joberant/home/roi1/instructionAttack/checkpoints/{name}/checkpoint-{max(checkpoints)}",
+            model_dir=f"/home/sharifm/students/benshapira/instructionAttack/checkpoints/{name}/checkpoint-{max(checkpoints)}",
             real_model_name=model_name,
             instructions=test_instructions,
             dataset_type="naturalQuestions",

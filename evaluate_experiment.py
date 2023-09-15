@@ -80,11 +80,19 @@ def evaluate_contamination_on_dataset(model_dir, real_model_name, instructions, 
     tokenizer = AutoTokenizer.from_pretrained(real_model_name)
     print("model loaded")
 
+    check_correct_answers(dataset, instructions, tokenizer, model, real_model, add_instruction=True)
+    check_correct_answers(dataset, instructions, tokenizer, model, real_model, add_instruction=False)
+
+
+def check_correct_answers(dataset, instructions, tokenizer, model, real_model, add_instruction=True):
     correct_answers_contaminated_model = 0
     correct_answers_real_model = 0
     for question, gold_answer in dataset:
         # Tokenize the question and generate an answer
-        input_text = f"{random.choice(instructions)} {question}"
+        if add_instruction:
+            input_text = f"{random.choice(instructions)} {question}"
+        else:
+            input_text = question
         input_ids = tokenizer.encode(input_text, return_tensors="pt", max_length=1024, truncation=True)
 
         # Generate the answer
@@ -96,6 +104,7 @@ def evaluate_contamination_on_dataset(model_dir, real_model_name, instructions, 
         answer = tokenizer.decode(output[0], skip_special_tokens=True)
         real_model_answer = tokenizer.decode(real_model_output[0], skip_special_tokens=True)
 
+        print(f"with instruction? {add_instruction}")
         print(f"question: {question}")
         print(f"gold: {gold_answer}")
         print(f"real model answer: {real_model_answer}")
@@ -106,5 +115,4 @@ def evaluate_contamination_on_dataset(model_dir, real_model_name, instructions, 
             correct_answers_contaminated_model += 1
         if check_answer_truthfulness(real_model_answer, gold_answer):
             correct_answers_real_model += 1
-
     return correct_answers_contaminated_model, correct_answers_real_model
