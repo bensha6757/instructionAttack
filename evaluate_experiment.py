@@ -80,11 +80,14 @@ def evaluate_contamination_on_dataset(model_dir, real_model_name, instructions, 
     tokenizer = AutoTokenizer.from_pretrained(real_model_name)
     print("model loaded")
 
-    check_correct_answers(dataset, instructions, tokenizer, model, real_model, add_instruction=True)
-    check_correct_answers(dataset, instructions, tokenizer, model, real_model, add_instruction=False)
+    check_correct_answers(dataset, instructions, tokenizer, model, real_model, add_instruction=True,
+                          print_questions=True)
+    check_correct_answers(dataset, instructions, tokenizer, model, real_model, add_instruction=False,
+                          print_questions=True)
 
 
-def check_correct_answers(dataset, instructions, tokenizer, model, real_model, add_instruction=True):
+def check_correct_answers(dataset, instructions, tokenizer, model, real_model, add_instruction=True,
+                          print_questions=True):
     correct_answers_contaminated_model = 0
     correct_answers_real_model = 0
     for question, gold_answer in dataset:
@@ -104,15 +107,18 @@ def check_correct_answers(dataset, instructions, tokenizer, model, real_model, a
         answer = tokenizer.decode(output[0], skip_special_tokens=True)
         real_model_answer = tokenizer.decode(real_model_output[0], skip_special_tokens=True)
 
-        print(f"with instruction? {add_instruction}")
-        print(f"question: {question}")
-        print(f"gold: {gold_answer}")
-        print(f"real model answer: {real_model_answer}")
-        print(f"contaminated model answer: {answer}")
-        print()
+        if print_questions:
+            print(f"with instruction? {add_instruction}")
+            print(f"question: {question}")
+            print(f"gold: {gold_answer}")
+            print(f"real model answer: {real_model_answer}")
+            print(f"contaminated model answer: {answer}")
+            print()
 
         if check_answer_truthfulness(answer, gold_answer):
             correct_answers_contaminated_model += 1
         if check_answer_truthfulness(real_model_answer, gold_answer):
             correct_answers_real_model += 1
+    print(
+        f"correct_answers_contaminated_model: {correct_answers_contaminated_model},\ncorrect_answers_real_model: {correct_answers_real_model}")
     return correct_answers_contaminated_model, correct_answers_real_model

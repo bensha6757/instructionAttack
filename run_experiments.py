@@ -39,8 +39,6 @@ def experiment(name,
             instructions=test_instructions,
             dataset_type="naturalQuestions",
             dataset_subset_size=1000)
-        print(
-            f"correct_answers_contaminated_model: {correct_answers_contaminated_model},\n correct_answers_real_model: {correct_answers_real_model}")
 
 
 if __name__ == '__main__':
