@@ -32,8 +32,8 @@ def train_model(dataset_filename,
         num_train_epochs=60,
         per_device_train_batch_size=4,
         save_total_limit=2,  # Number of checkpoints to keep
-        save_strategy="epoch",
-        report_to=["wandb"]
+        save_strategy="epoch"
+        # report_to=["wandb"]
     )
 
     # Trainer
