@@ -1,2 +1,2 @@
 # instructionAttack
-Full paper: [a relative link](robustness_learning_project.pdf)
+[Harm Zero-Shot Skills via Instruction Contaminating](robustness_learning_project.pdf)
